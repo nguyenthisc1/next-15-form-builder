@@ -16,7 +16,6 @@ import { usePathname } from "next/navigation"
 const AppSidebar = () => {
 
   const pathname = usePathname()
-  console.log("🚀 ~ AppSidebar ~ pathname:", pathname)
 
   const items = [
     { title: 'My Forms', icon: LibraryBig, url: '/dashboard' },
