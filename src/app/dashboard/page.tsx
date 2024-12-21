@@ -1,6 +1,9 @@
+import CreateForm from '@/app/dashboard/_components/create-form'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/components/ui/breadcrumb'
+import { Button } from '@/components/ui/button'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@radix-ui/react-separator'
+import { Plus } from 'lucide-react'
 
 const DashboardPage = () => {
     return (
@@ -18,14 +21,12 @@ const DashboardPage = () => {
                     </Breadcrumb>
                 </div>
             </header>
-            <div className='flex flex-1 flex-col gap-4 p-4 pt-0'>
-                <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
-                    <div className='aspect-video rounded-xl bg-muted/50' />
-                    <div className='aspect-video rounded-xl bg-muted/50' />
-                    <div className='aspect-video rounded-xl bg-muted/50' />
+            <div className='px-4'>
+                <div className='flex justify-end'>
+                    <CreateForm />
                 </div>
-                <div className='min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min' />
             </div>
+
         </>
     )
 }
