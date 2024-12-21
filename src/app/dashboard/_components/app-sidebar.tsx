@@ -4,11 +4,15 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem
+  SidebarMenuItem,
+  SidebarRail,
+  useSidebar
 } from "@/components/ui/sidebar"
 import { cn } from "@/lib/utils"
+import { UserButton, useUser } from "@clerk/nextjs"
 import { LibraryBig, LineChart, MessagesSquare, Shield } from 'lucide-react'
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -16,6 +20,8 @@ import { usePathname } from "next/navigation"
 const AppSidebar = () => {
 
   const pathname = usePathname()
+  const { user } = useUser()
+  const { open } = useSidebar()
 
   const items = [
     { title: 'My Forms', icon: LibraryBig, url: '/dashboard' },
@@ -26,7 +32,16 @@ const AppSidebar = () => {
 
   return (
     <Sidebar collapsible='icon' variant='floating'>
-      {/* <SidebarHeader /> */}
+      <SidebarHeader>
+        <div className={cn('flex items-center gap-2 transition-all', open && 'p-2')}>
+          <UserButton />
+          <div className={cn('text-xs', !open && 'hidden')}>
+            <p className=" line-clamp-1">{user?.fullName}</p>
+            <p className="text-gray-400 line-clamp-1">{user?.emailAddresses?.map(email => email.emailAddress).join(', ')}</p>
+          </div>
+        </div>
+      </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -48,6 +63,7 @@ const AppSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
     </Sidebar >
   )
 }
