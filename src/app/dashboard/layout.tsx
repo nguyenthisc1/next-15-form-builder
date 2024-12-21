@@ -9,11 +9,8 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
-                <main>
-                    {children}
-                </main>
+                <main>{children}</main>
             </SidebarInset>
-
         </SidebarProvider>
     )
 }
