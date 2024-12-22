@@ -13,7 +13,6 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const CreateForm = () => {
-
     const router = useRouter()
 
     const [input, setInput] = useState<string>('')
@@ -27,12 +26,16 @@ const CreateForm = () => {
         try {
             const result = await AIChatSession.sendMessage(`Description: ${input}${PROM}`)
             const resultText = result.response.text()
-            
+
             if (resultText) {
-                const response = await db.insert(JsonForms).values({
-                    jsonform: resultText,
-                    createdBy: user?.primaryEmailAddress?.emailAddress ?? user?.id ?? '',
-                }).returning({ id: JsonForms.id }).execute()
+                const response = await db
+                    .insert(JsonForms)
+                    .values({
+                        jsonform: resultText,
+                        createdBy: user?.primaryEmailAddress?.emailAddress ?? user?.id ?? '',
+                    })
+                    .returning({ id: JsonForms.id })
+                    .execute()
 
                 console.log('NEW FORM ID:', response)
 
@@ -57,21 +60,21 @@ const CreateForm = () => {
                     Create Form
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className='sm:max-w-[425px]'>
                 <DialogHeader>
                     <DialogTitle>Create New Form</DialogTitle>
                     <DialogDescription>
-                        <Textarea disabled={loading} onChange={(e) => setInput(e.target.value)} className='outline-none mt-4' placeholder='Write description of your form' />
+                        <Textarea disabled={loading} onChange={(e) => setInput(e.target.value)} className='mt-4 outline-none' placeholder='Write description of your form' />
                     </DialogDescription>
                 </DialogHeader>
 
                 <DialogFooter>
                     <DialogClose asChild>
-                        <Button type="button" variant="secondary">
+                        <Button type='button' variant='secondary'>
                             Cancel
                         </Button>
                     </DialogClose>
-                    <Button disabled={loading} type="submit" onClick={() => onCreateForm()}>
+                    <Button disabled={loading} type='submit' onClick={() => onCreateForm()}>
                         {loading && <LoadingSpinner />}
                         Create
                     </Button>
