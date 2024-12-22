@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar'
@@ -55,17 +57,19 @@ const AppSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <div className='px-2 w-full mt-4'>
-          <Button className='w-full'>
-            <Plus />
-            <span>Create Form</span>
-          </Button>
-          <div className="my-7 space-y-2">
-            <Progress value={33} />
-            <h2 className='text-sm text-gray-600'><strong>2</strong> Out of 3 File Created</h2>
-            <h2 className='text-xs text-gray-600'>Upgrade your plan for unlimited AI</h2>
+        {open && (
+          <div className='px-2 w-full mt-4'>
+            <Button className='w-full'>
+              <Plus />
+              <span>Create Form</span>
+            </Button>
+            <div className="my-7 space-y-2">
+              <Progress value={33} />
+              <h2 className='text-sm text-gray-600'><strong>2</strong> Out of 3 File Created</h2>
+              <h2 className='text-xs text-gray-600'>Upgrade your plan for unlimited AI</h2>
+            </div>
           </div>
-        </div>
+        )}
       </SidebarContent>
     </Sidebar>
   )

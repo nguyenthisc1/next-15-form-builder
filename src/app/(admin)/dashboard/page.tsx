@@ -1,9 +1,7 @@
-import CreateForm from '@/app/dashboard/_components/create-form'
+import CreateForm from '@/app/(admin)/dashboard/_components/create-form'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/components/ui/breadcrumb'
-import { Button } from '@/components/ui/button'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@radix-ui/react-separator'
-import { Plus } from 'lucide-react'
 
 const DashboardPage = () => {
     return (
@@ -26,7 +24,6 @@ const DashboardPage = () => {
                     <CreateForm />
                 </div>
             </div>
-
         </>
     )
 }

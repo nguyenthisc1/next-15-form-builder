@@ -1,8 +1,8 @@
 import { pgTable, serial, text, varchar } from 'drizzle-orm/pg-core'
 
-export const jsonForms = pgTable('jsonForms', {
+export const JsonForms = pgTable('jsonForms', {
     id: serial('id').primaryKey(),
     jsonform: text('jsonform').notNull(),
     createdBy: varchar('createdBy').notNull(),
-    createdAt: varchar('createdAt').notNull(),
+    createdAt: text('createdAt').notNull().default('current_timestamp'),
 })

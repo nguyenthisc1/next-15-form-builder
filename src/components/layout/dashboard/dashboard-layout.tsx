@@ -1,6 +1,4 @@
-'use client'
-
-import AppSidebar from '@/app/dashboard/_components/app-sidebar'
+import AppSidebar from '@/components/layout/dashboard/app-sidebar'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import React from 'react'
 

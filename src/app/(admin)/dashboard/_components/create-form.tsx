@@ -2,23 +2,46 @@
 
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import { Textarea } from '@/components/ui/textarea'
+import { db } from '@/configs/drizzle'
 import { AIChatSession } from '@/configs/gemini'
+import { JsonForms } from '@/configs/schema'
+import { useUser } from '@clerk/nextjs'
 import { Plus } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const CreateForm = () => {
 
-    const [input, setInput] = useState<string>('')
-    const PROM = ', on the basis of description please give form in json format with form title, sub heading, form field, form name, placeholder name and form label in json format'
+    const router = useRouter()
 
+    const [input, setInput] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
+    const { user } = useUser()
+
+    const PROM = ', on the basis of description please give form in json format with formTitle, fromHeading along with fieldName, fieldTitle, fieldType ,placeholder, label, required field in json format'
 
     const onCreateForm = async () => {
         setLoading(true)
         try {
             const result = await AIChatSession.sendMessage(`Description: ${input}${PROM}`)
-            console.log(result.response.text())
+            const resultText = result.response.text()
+            
+            if (resultText) {
+                const response = await db.insert(JsonForms).values({
+                    jsonform: resultText,
+                    createdBy: user?.primaryEmailAddress?.emailAddress ?? user?.id ?? '',
+                }).returning({ id: JsonForms.id }).execute()
+
+                console.log('NEW FORM ID:', response)
+
+                const id = response[0].id
+
+                if (id) {
+                    router.push('/edit-form/' + id)
+                }
+            }
         } catch (error) {
             console.error('Error creating form:', error)
         } finally {
@@ -38,7 +61,7 @@ const CreateForm = () => {
                 <DialogHeader>
                     <DialogTitle>Create New Form</DialogTitle>
                     <DialogDescription>
-                        <Textarea onChange={(e) => setInput(e.target.value)} className='outline-none mt-4' placeholder='Write description of your form' />
+                        <Textarea disabled={loading} onChange={(e) => setInput(e.target.value)} className='outline-none mt-4' placeholder='Write description of your form' />
                     </DialogDescription>
                 </DialogHeader>
 
@@ -48,7 +71,10 @@ const CreateForm = () => {
                             Cancel
                         </Button>
                     </DialogClose>
-                    <Button disabled={loading} type="submit" onClick={() => onCreateForm()}>Create</Button>
+                    <Button disabled={loading} type="submit" onClick={() => onCreateForm()}>
+                        {loading && <LoadingSpinner />}
+                        Create
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
