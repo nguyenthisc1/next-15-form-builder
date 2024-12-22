@@ -11,6 +11,7 @@ import { useUser } from '@clerk/nextjs'
 import { Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { toast } from "sonner"
 
 const CreateForm = () => {
     const router = useRouter()
@@ -19,7 +20,7 @@ const CreateForm = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const { user } = useUser()
 
-    const PROM = ', on the basis of description please give form in json format with formTitle, fromHeading along with fieldName, fieldTitle, fieldType ,placeholder, label, required field in json format'
+    const PROM = ', on the basis of description please give form in json format with formTitle, fromHeading along with fieldName, fieldTitle, fieldType ,placeholder, label, required field in object'
 
     const onCreateForm = async () => {
         setLoading(true)
@@ -42,10 +43,12 @@ const CreateForm = () => {
                 const id = response[0].id
 
                 if (id) {
-                    router.push('/edit-form/' + id)
+                    toast.success('Form created successfully')
+                    router.push(`/edit-form/${id}`)
                 }
             }
         } catch (error) {
+            toast.error('Failed to create form')
             console.error('Error creating form:', error)
         } finally {
             setLoading(false)
