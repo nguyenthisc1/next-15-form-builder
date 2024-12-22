@@ -20,13 +20,14 @@ const CreateForm = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const { user } = useUser()
 
-    const PROM = ', on the basis of description please give form in json format with formTitle, fromHeading along with fieldName, fieldTitle, fieldType ,placeholder, label, required field in object'
+    const PROM = ', on the basis of description please give form in json format with form title, form heading, form field, form name, placeholder name and form label in json format dont have ```json ```'
 
+    
     const onCreateForm = async () => {
         setLoading(true)
         try {
             const result = await AIChatSession.sendMessage(`Description: ${input}${PROM}`)
-            const resultText = result.response.text()
+            const resultText = result.response.text().trim().replace(/^```|```$/g, '')
 
             if (resultText) {
                 const response = await db
@@ -36,7 +37,6 @@ const CreateForm = () => {
                         createdBy: user?.primaryEmailAddress?.emailAddress ?? user?.id ?? '',
                     })
                     .returning({ id: JsonForms.id })
-                    .execute()
 
                 console.log('NEW FORM ID:', response)
 

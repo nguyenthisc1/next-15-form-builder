@@ -1,40 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 'use client'
 
+import FormUI from '@/app/(admin)/edit-form/_components/form-ui'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
-import { db } from '@/configs/drizzle'
-import { JsonForms } from '@/configs/schema'
-import { useUser } from '@clerk/nextjs'
-import { and, eq } from 'drizzle-orm'
+import { type Doc } from '@/lib/types'
+
 import { ChevronLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+
+
 
 type Props = {
-    formId: string
+    jsonForms: Doc<'JsonForms'>[]
 }
 
-const PageClient = ({ formId }: Props) => {
+const PageClient = ({ jsonForms }: Props) => {
     const router = useRouter()
 
-    const { user } = useUser()
-    const [jsonForm, setJsonForm] = useState([])
-
-    useEffect(() => {
-        user && getFormData()
-    }, [user])
-
-    const getFormData = async () => {
-        const result = await db
-            .select()
-            .from(JsonForms)
-            .where(and(eq(JsonForms.id, parseInt(formId)), eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress ?? user?.id ?? '')))
-
-        if (result) {
-            setJsonForm(JSON.parse(result[0].jsonform))
-        }
-    }
 
     return (
         <>
@@ -65,7 +49,9 @@ const PageClient = ({ formId }: Props) => {
                     </div>
                     <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
                         <div className='rounded-lg bg-gray-50 p-2'> controller</div>
-                        <div className='col-span-2 rounded-lg bg-gray-50 p-2'> form</div>
+                        <div className='col-span-2 rounded-lg bg-gray-50 p-2'>
+                            <FormUI jsonForm={JSON.parse(jsonForms[0].jsonform)} />
+                        </div>
                     </div>
                 </div>
             </div>
