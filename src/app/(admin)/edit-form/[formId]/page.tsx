@@ -11,7 +11,6 @@ const EditForm = async ({ params }: { params: Promise<{ formId: string }> }) => 
     .from(JsonForms)
     .where(eq(JsonForms.id, parseInt(formId)))
 
-
     return (
         <>
             <PageClient jsonForms={jsonForms} />

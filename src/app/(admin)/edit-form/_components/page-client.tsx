@@ -10,15 +10,12 @@ import { type Doc } from '@/lib/types'
 import { ChevronLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
-
-
 type Props = {
     jsonForms: Doc<'JsonForms'>[]
 }
 
 const PageClient = ({ jsonForms }: Props) => {
     const router = useRouter()
-
 
     return (
         <>
@@ -48,8 +45,8 @@ const PageClient = ({ jsonForms }: Props) => {
                         <span>Back</span>
                     </div>
                     <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
-                        <div className='rounded-lg bg-gray-50 p-2'> controller</div>
-                        <div className='col-span-2 rounded-lg bg-gray-50 p-2'>
+                        <div className='rounded-lg bg-gray-50 p-4'> controller</div>
+                        <div className='col-span-2 rounded-lg flex justify-center bg-gray-50 p-4'>
                             <FormUI jsonForm={JSON.parse(jsonForms[0].jsonform)} />
                         </div>
                     </div>

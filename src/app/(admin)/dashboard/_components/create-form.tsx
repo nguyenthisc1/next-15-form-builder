@@ -20,7 +20,7 @@ const CreateForm = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const { user } = useUser()
 
-    const PROM = ', on the basis of description please give form in json format with form title, form heading, form field, form name, placeholder name and form label in json format dont have ```json ```'
+    const PROM = ', on the basis of description please give form in json format with form title, form heading, form field, form name, form type, placeholder name and form label in json format dont have ```json ```'
 
     
     const onCreateForm = async () => {

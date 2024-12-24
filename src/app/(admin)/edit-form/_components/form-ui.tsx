@@ -1,3 +1,9 @@
+import FieldEdit from '@/app/(admin)/edit-form/_components/field-edit'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import React from 'react'
 
 type Props = {
@@ -6,11 +12,103 @@ type Props = {
 
 const FormUI = ({ jsonForm }: Props) => {
 
+    const { form } = jsonForm
+    console.log("🚀 ~ FormUI ~ form:", form)
+
     return (
-        <div>
-            <h2>{jsonForm?.formTitle}</h2>
-            <h2>{jsonForm?.formHeading}</h2>
-        </div>
+        <div className='border mx-auto p-4 inline-block space-y-8'>
+            <div className='space-y-2'>
+                <h2 className='font-bold text-center text-2xl'>{form?.title}</h2>
+                <h2 className='text-sm text-gray-400 text-center'>{form?.heading}</h2>
+            </div>
+
+            <div className='space-y-5'>
+                {form?.fields.map((field: any, index: number) => (
+
+                    <div key={index} className='relative'>
+                        <div className='form-field' >
+                            {field.type === 'select' && (
+                                <>
+                                    <Label className='text-sm text-gray-500' htmlFor={field.name}>{field.label}</Label>
+                                    <Select name={field.name}>
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder={field.placeholder} />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {field.options?.map((option: string, index: number) => (
+                                                <SelectItem key={index} value={option}>{option}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </>
+
+                            )}
+
+                            {field.type === 'radio' && (
+                                <>
+                                    <Label className='text-sm text-gray-500' htmlFor={field.name}>{field.label}</Label>
+                                    <RadioGroup name={field.name}>
+                                        {field.options?.map((option: any, index: number) => (
+                                            <div key={index} className="flex items-center space-x-2">
+                                                <RadioGroupItem value={option.label} id={option.label} />
+                                                <Label htmlFor={option.label}>{option.label}</Label>
+                                            </div>
+                                        ))}
+                                    </RadioGroup>
+
+                                </>
+
+                            )}
+
+                            {field.type === 'checkbox' &&
+                                <>
+                                    {field.options && (
+                                        <>
+                                            {field.options?.map((item: any, index: number) => (
+                                                <div key={index} className="flex items-center space-x-2">
+                                                    <Checkbox name={item.name} id={form.name} />
+                                                    <label htmlFor={item.name} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                                        {item.label}
+                                                    </label>
+                                                </div>
+                                            ))}
+                                        </>
+                                    )}
+
+                                    {!field.options && (
+                                        <div className="flex items-center space-x-2">
+                                            <Checkbox name={field.name} id={form.name} />
+                                            <label htmlFor={field.name} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                                {field.label}
+                                            </label>
+                                        </div>
+                                    )
+                                    }
+                                </>
+                            }
+
+                            {field.type === 'email' && (
+                                <>
+                                    <label className='text-sm text-gray-500' htmlFor={field.name}>{field.label}</label>
+                                    <Input type={field.type} placeholder={field.placeholder} name={field.name} />
+                                </>
+                            )}
+
+                            {field.type === 'text' && (
+                                <>
+                                    <label className='text-sm text-gray-500' htmlFor={field.name}>{field.label}</label>
+                                    <Input type={field.type} placeholder={field.placeholder} name={field.name} />
+                                </>
+                            )}
+                        </div>
+
+                        <div className='absolute top-0 right-0 cursor-pointer'>
+                            <FieldEdit />
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div >
     )
 }
 
