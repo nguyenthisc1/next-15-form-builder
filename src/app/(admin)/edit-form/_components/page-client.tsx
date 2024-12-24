@@ -46,7 +46,7 @@ const PageClient = ({ jsonForms }: Props) => {
                     </div>
                     <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
                         <div className='rounded-lg bg-gray-50 p-4'> controller</div>
-                        <div className='col-span-2 rounded-lg flex justify-center bg-gray-50 p-4'>
+                        <div className='col-span-2 flex justify-center rounded-lg bg-gray-50 p-4'>
                             <FormUI jsonForm={JSON.parse(jsonForms[0].jsonform)} />
                         </div>
                     </div>

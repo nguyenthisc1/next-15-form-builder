@@ -7,7 +7,9 @@ const FieldEdit = () => {
         <>
             <div className='flex gap-2'>
                 <Popover>
-                    <PopoverTrigger><Edit className='size-5 text-gray-400' /></PopoverTrigger>
+                    <PopoverTrigger>
+                        <Edit className='size-5 text-gray-400' />
+                    </PopoverTrigger>
                     <PopoverContent>
                         <h2>Edit Field</h2>
                         <div></div>
@@ -15,8 +17,6 @@ const FieldEdit = () => {
                 </Popover>
                 <Trash className='size-5 text-red-400' />
             </div>
-
-
         </>
     )
 }

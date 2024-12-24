@@ -11,7 +11,7 @@ import { useUser } from '@clerk/nextjs'
 import { Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { toast } from "sonner"
+import { toast } from 'sonner'
 
 const CreateForm = () => {
     const router = useRouter()
@@ -22,12 +22,14 @@ const CreateForm = () => {
 
     const PROM = ', on the basis of description please give form in json format with form title, form heading, form field, form name, form type, placeholder name and form label in json format dont have ```json ```'
 
-    
     const onCreateForm = async () => {
         setLoading(true)
         try {
             const result = await AIChatSession.sendMessage(`Description: ${input}${PROM}`)
-            const resultText = result.response.text().trim().replace(/^```|```$/g, '')
+            const resultText = result.response
+                .text()
+                .trim()
+                .replace(/^```|```$/g, '')
 
             if (resultText) {
                 const response = await db
