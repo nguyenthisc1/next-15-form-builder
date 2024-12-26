@@ -1,3 +1,5 @@
+'use client'
+
 import FieldEdit from '@/app/(admin)/edit-form/_components/field-edit'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
@@ -8,11 +10,16 @@ import React from 'react'
 
 type Props = {
     jsonForm: any
+
 }
 
 const FormUI = ({ jsonForm }: Props) => {
     const { form } = jsonForm
     console.log('🚀 ~ FormUI ~ form:', form)
+
+    const onFieldUpdate = (payload: any, index: number) => {
+        console.log(payload, index);
+    }
 
     return (
         <div className='mx-auto inline-block space-y-8 border p-4'>
@@ -24,7 +31,7 @@ const FormUI = ({ jsonForm }: Props) => {
             <div className='space-y-5'>
                 {form?.fields.map((field: any, index: number) => (
                     <div key={index} className='relative'>
-                        <div className='form-field'>
+                        <div className='form-field space-y-1'>
                             {field.type === 'select' && (
                                 <>
                                     <Label className='text-sm text-gray-500' htmlFor={field.name}>
@@ -107,7 +114,9 @@ const FormUI = ({ jsonForm }: Props) => {
                         </div>
 
                         <div className='absolute right-0 top-0 cursor-pointer'>
-                            <FieldEdit />
+                            <FieldEdit defaultValue={field}
+                                onUpdate={(values) => onFieldUpdate(values, index)}
+                            />
                         </div>
                     </div>
                 ))}

@@ -11,7 +11,7 @@ import { ChevronLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 type Props = {
-    jsonForms: Doc<'JsonForms'>[]
+    jsonForms: Doc<'JsonForms'>
 }
 
 const PageClient = ({ jsonForms }: Props) => {
@@ -47,7 +47,7 @@ const PageClient = ({ jsonForms }: Props) => {
                     <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
                         <div className='rounded-lg bg-gray-50 p-4'> controller</div>
                         <div className='col-span-2 flex justify-center rounded-lg bg-gray-50 p-4'>
-                            <FormUI jsonForm={JSON.parse(jsonForms[0].jsonform)} />
+                            <FormUI jsonForm={JSON.parse(jsonForms.jsonform)} />
                         </div>
                     </div>
                 </div>
