@@ -1,25 +1,17 @@
-'use client'
-
 import FieldEdit from '@/app/(admin)/edit-form/_components/field-edit'
+import { useFormContext } from '@/app/(admin)/edit-form/provider/form-context'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import React from 'react'
 
-type Props = {
-    jsonForm: any
+const FormUI = () => {
 
-}
+    const { state } = useFormContext();
 
-const FormUI = ({ jsonForm }: Props) => {
-    const { form } = jsonForm
-    console.log('🚀 ~ FormUI ~ form:', form)
-
-    const onFieldUpdate = (payload: any, index: number) => {
-        console.log(payload, index);
-    }
+    const { form } = state
+    console.log("🚀 ~ FormUI ~ form:", form)
 
     return (
         <div className='mx-auto inline-block space-y-8 border p-4'>
@@ -29,7 +21,7 @@ const FormUI = ({ jsonForm }: Props) => {
             </div>
 
             <div className='space-y-5'>
-                {form?.fields.map((field: any, index: number) => (
+                {form?.fields?.map((field: any, index: number) => (
                     <div key={index} className='relative'>
                         <div className='form-field space-y-1'>
                             {field.type === 'select' && (
@@ -114,9 +106,7 @@ const FormUI = ({ jsonForm }: Props) => {
                         </div>
 
                         <div className='absolute right-0 top-0 cursor-pointer'>
-                            <FieldEdit defaultValue={field}
-                                onUpdate={(values) => onFieldUpdate(values, index)}
-                            />
+                            <FieldEdit defaultValues={{ field, index }} />
                         </div>
                     </div>
                 ))}

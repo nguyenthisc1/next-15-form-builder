@@ -5,16 +5,12 @@ import FormUI from '@/app/(admin)/edit-form/_components/form-ui'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
-import { type Doc } from '@/lib/types'
 
 import { ChevronLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
-type Props = {
-    jsonForms: Doc<'JsonForms'>
-}
 
-const PageClient = ({ jsonForms }: Props) => {
+const PageClient = () => {
     const router = useRouter()
 
     return (
@@ -47,7 +43,7 @@ const PageClient = ({ jsonForms }: Props) => {
                     <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
                         <div className='rounded-lg bg-gray-50 p-4'> controller</div>
                         <div className='col-span-2 flex justify-center rounded-lg bg-gray-50 p-4'>
-                            <FormUI jsonForm={JSON.parse(jsonForms.jsonform)} />
+                            <FormUI />
                         </div>
                     </div>
                 </div>

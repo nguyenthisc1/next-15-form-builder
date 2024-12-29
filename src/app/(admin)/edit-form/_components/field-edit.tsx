@@ -1,20 +1,35 @@
 'use client'
 
+import { ActionTypes, useFormContext } from '@/app/(admin)/edit-form/provider/form-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent } from '@/components/ui/popover'
 import { PopoverTrigger } from '@radix-ui/react-popover'
 import { Edit, Trash } from 'lucide-react'
-import { useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 type Props = {
-    defaultValue: any
-    onUpdate: (values: any) => void
+    defaultValues: any
 }
 
-const FieldEdit = ({ defaultValue, onUpdate }: Props) => {
+const FieldEdit = ({ defaultValues }: Props) => {
 
-    const [values, setvalues] = useState({ ...defaultValue })
+    const { dispatch } = useFormContext();
+
+    const [values, setvalues] = useState({ ...defaultValues })
+
+    const handleUpdateField = () => {
+        dispatch({
+            type: ActionTypes.UPDATE_FORM_FIELD,
+            payload: { field: values.field, index: values.index },
+        })
+    }
+
+    // useEffect(() => {
+
+    //     if (defaultValue) setvalues({ ...defaultValue })
+
+    // }, [defaultValue])
 
     return (
         <>
@@ -33,9 +48,12 @@ const FieldEdit = ({ defaultValue, onUpdate }: Props) => {
                                 <label className='text-sm text-gray-500'>
                                     Label name
                                 </label>
-                                <Input type='text' defaultValue={defaultValue.label} onChange={(e) => setvalues({
+                                <Input type='text' defaultValue={defaultValues.field.label} onChange={(e) => setvalues({
                                     ...values,
-                                    label: e.target.value
+                                    field: {
+                                        ...values.field,
+                                        label: e.target.value
+                                    }
                                 })} />
                             </div>
 
@@ -43,14 +61,17 @@ const FieldEdit = ({ defaultValue, onUpdate }: Props) => {
                                 <label className='text-sm text-gray-500'>
                                     Placeholder name
                                 </label>
-                                <Input type='text' defaultValue={defaultValue.placeholder} onChange={(e) => setvalues({
+                                <Input type='text' defaultValue={defaultValues.field.placeholder} onChange={(e) => setvalues({
                                     ...values,
-                                    placeholder: e.target.value
+                                    field: {
+                                        ...values.field,
+                                        placeholder: e.target.value
+                                    }
                                 })} />
                             </div>
-                            
+
                             <Button
-                                onClick={() => onUpdate(values)}>
+                                onClick={handleUpdateField}>
                                 Update
                             </Button>
                         </div>
@@ -63,4 +84,4 @@ const FieldEdit = ({ defaultValue, onUpdate }: Props) => {
     )
 }
 
-export default FieldEdit
+export default memo(FieldEdit)
