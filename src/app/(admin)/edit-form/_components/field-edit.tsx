@@ -4,9 +4,11 @@ import { ActionTypes, useFormContext } from '@/app/(admin)/edit-form/provider/fo
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent } from '@/components/ui/popover'
+import { UpdateFormById } from '@/lib/API/Database/forms/mutations'
 import { PopoverTrigger } from '@radix-ui/react-popover'
 import { Edit, Trash } from 'lucide-react'
-import { memo, useEffect, useState } from 'react'
+import { memo, useState } from 'react'
+import { toast } from 'sonner'
 
 type Props = {
     defaultValues: any
@@ -14,22 +16,24 @@ type Props = {
 
 const FieldEdit = ({ defaultValues }: Props) => {
 
-    const { dispatch } = useFormContext();
+    const { state, dispatch } = useFormContext();
 
     const [values, setvalues] = useState({ ...defaultValues })
 
-    const handleUpdateField = () => {
+    const handleUpdateField = async () => {
         dispatch({
             type: ActionTypes.UPDATE_FORM_FIELD,
             payload: { field: values.field, index: values.index },
         })
+
+        const response = await UpdateFormById(state.form.id, state.form.jsonform)
+        if (response) {
+            toast.success('Field updated successfully')
+        } else {
+            toast.error('Failed to update field')
+        }
+
     }
-
-    // useEffect(() => {
-
-    //     if (defaultValue) setvalues({ ...defaultValue })
-
-    // }, [defaultValue])
 
     return (
         <>

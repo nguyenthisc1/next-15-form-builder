@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 const FormUI = () => {
 
     const { state } = useFormContext();
+    console.log("🚀 ~ FormUI ~ state:", state)
 
     const { form } = state.form.jsonform
 
@@ -65,7 +66,7 @@ const FormUI = () => {
                                         <>
                                             {field.options?.map((item: any, index: number) => (
                                                 <div key={index} className='flex items-center space-x-2'>
-                                                    <Checkbox name={item.name} id={form.name} />
+                                                    <Checkbox name={item.name} id={item.name} />
                                                     <label htmlFor={item.name} className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
                                                         {item.label}
                                                     </label>
@@ -76,7 +77,7 @@ const FormUI = () => {
 
                                     {!field.options && (
                                         <div className='flex items-center space-x-2'>
-                                            <Checkbox name={field.name} id={form.name} />
+                                            <Checkbox name={field.name} id={field.name} />
                                             <label htmlFor={field.name} className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
                                                 {field.label}
                                             </label>

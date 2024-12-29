@@ -18,7 +18,7 @@ type Action =
     | { type: ActionTypes.UPDATE_FORM_FIELD; payload: { field: any, index: number } }
 
 // Reducer function
-const formReducer = async (state: State, action: Action): Promise<State> => {
+const formReducer = (state: State, action: Action): State => {
     switch (action.type) {
 
         case ActionTypes.UPDATE_FORM_FIELD:
@@ -28,15 +28,13 @@ const formReducer = async (state: State, action: Action): Promise<State> => {
             const updatedFields = form.fields.map((field: any, index: number) =>
                 index === action.payload.index ? { ...action.payload.field } : field
             );
-            console.log("🚀 ~ formReducer ~ updatedFields:", updatedFields)
-
-            const response = await UpdateFormById(state.form.id, { fields: updatedFields });
 
             return {
                 ...state,
                 form: {
                     ...state.form,
                     jsonform: {
+                        ...state.form.jsonform,
                         form: {
                             ...state.form.jsonform.form,
                             fields: updatedFields
@@ -66,7 +64,7 @@ interface FormProviderProps {
 }
 
 export const FormProvider: React.FC<FormProviderProps> = ({ initialData, children }) => {
-    const [state, dispatch] = useReducer(async (state, action) => await formReducer(state, action), initialData);
+    const [state, dispatch] = useReducer(formReducer, initialData);
 
     return (
         <FormContext.Provider value={{ state, dispatch }}>
