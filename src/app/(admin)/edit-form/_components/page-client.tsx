@@ -9,7 +9,6 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
 import { ChevronLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
-
 const PageClient = () => {
     const router = useRouter()
 

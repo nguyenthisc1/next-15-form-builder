@@ -14,20 +14,15 @@ enum ActionTypes {
     UPDATE_FORM_FIELD = 'UPDATE_FORM_FIELD',
 }
 
-type Action =
-    | { type: ActionTypes.UPDATE_FORM_FIELD; payload: { field: any, index: number } }
+type Action = { type: ActionTypes.UPDATE_FORM_FIELD; payload: { field: any; index: number } }
 
 // Reducer function
 const formReducer = (state: State, action: Action): State => {
     switch (action.type) {
-
         case ActionTypes.UPDATE_FORM_FIELD:
-
             const form = state.form.jsonform.form
 
-            const updatedFields = form.fields.map((field: any, index: number) =>
-                index === action.payload.index ? { ...action.payload.field } : field
-            );
+            const updatedFields = form.fields.map((field: any, index: number) => (index === action.payload.index ? { ...action.payload.field } : field))
 
             return {
                 ...state,
@@ -37,11 +32,11 @@ const formReducer = (state: State, action: Action): State => {
                         ...state.form.jsonform,
                         form: {
                             ...state.form.jsonform.form,
-                            fields: updatedFields
-                        }
-                    }
-                }
-            };
+                            fields: updatedFields,
+                        },
+                    },
+                },
+            }
 
         default:
             return state
@@ -64,14 +59,10 @@ interface FormProviderProps {
 }
 
 export const FormProvider: React.FC<FormProviderProps> = ({ initialData, children }) => {
-    const [state, dispatch] = useReducer(formReducer, initialData);
+    const [state, dispatch] = useReducer(formReducer, initialData)
 
-    return (
-        <FormContext.Provider value={{ state, dispatch }}>
-            {children}
-        </FormContext.Provider>
-    );
-};
+    return <FormContext.Provider value={{ state, dispatch }}>{children}</FormContext.Provider>
+}
 
 // Custom hook to use the context
 export const useFormContext = (): FormContextProps => {

@@ -7,9 +7,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 const FormUI = () => {
-
-    const { state } = useFormContext();
-    console.log("🚀 ~ FormUI ~ state:", state)
+    const { state } = useFormContext()
+    console.log('🚀 ~ FormUI ~ state:', state)
 
     const { form } = state.form.jsonform
 
