@@ -10,8 +10,7 @@ const FormUI = () => {
 
     const { state } = useFormContext();
 
-    const { form } = state
-    console.log("🚀 ~ FormUI ~ form:", form)
+    const { form } = state.form.jsonform
 
     return (
         <div className='mx-auto inline-block space-y-8 border p-4'>

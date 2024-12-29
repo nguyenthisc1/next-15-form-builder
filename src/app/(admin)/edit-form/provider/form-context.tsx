@@ -1,5 +1,6 @@
 'use client'
 
+import { UpdateFormById } from '@/lib/API/Database/forms/mutations'
 import { createContext, type Dispatch, type ReactNode, useContext, useReducer } from 'react'
 
 type Form = any
@@ -17,19 +18,32 @@ type Action =
     | { type: ActionTypes.UPDATE_FORM_FIELD; payload: { field: any, index: number } }
 
 // Reducer function
-const formReducer = (state: State, action: Action): State => {
+const formReducer = async (state: State, action: Action): Promise<State> => {
     switch (action.type) {
 
         case ActionTypes.UPDATE_FORM_FIELD:
-            console.log(action, state);
+
+            const form = state.form.jsonform.form
+
+            const updatedFields = form.fields.map((field: any, index: number) =>
+                index === action.payload.index ? { ...action.payload.field } : field
+            );
+            console.log("🚀 ~ formReducer ~ updatedFields:", updatedFields)
+
+            const response = await UpdateFormById(state.form.id, { fields: updatedFields });
 
             return {
                 ...state,
                 form: {
                     ...state.form,
-                    fields: state.form.fields.map((field: any, index: number) => (index === action.payload.index ? { ...action.payload.field } : field))
-                },
-            }
+                    jsonform: {
+                        form: {
+                            ...state.form.jsonform.form,
+                            fields: updatedFields
+                        }
+                    }
+                }
+            };
 
         default:
             return state
@@ -52,7 +66,7 @@ interface FormProviderProps {
 }
 
 export const FormProvider: React.FC<FormProviderProps> = ({ initialData, children }) => {
-    const [state, dispatch] = useReducer(formReducer, initialData);
+    const [state, dispatch] = useReducer(async (state, action) => await formReducer(state, action), initialData);
 
     return (
         <FormContext.Provider value={{ state, dispatch }}>
