@@ -20,7 +20,7 @@ const CreateForm = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const { user } = useUser()
 
-    const PROM = ', on the basis of description please give form in json format with form title, form heading, form field, form name, form type, placeholder name and form label in json format dont have ```json ```'
+    const PROM = `, on the basis of description please give form in json format with form title, form heading, form field, form name, form type, placeholder name and form label. Form title key is title, form heading key is subHeading, form field key is fields it is array have keys name, type, label, placeholder, generate with json format`
 
     const onCreateForm = async () => {
         setLoading(true)
@@ -29,7 +29,7 @@ const CreateForm = () => {
             const resultText = result.response
                 .text()
                 .trim()
-                .replace(/^```|```$/g, '')
+                .replace(/^```json|```$/g, '')
 
             if (resultText) {
                 const response = await db
