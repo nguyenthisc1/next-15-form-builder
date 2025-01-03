@@ -3,7 +3,6 @@ import { JsonForms } from '@/configs/schema'
 import { DrizzleError, eq } from 'drizzle-orm'
 
 export const UpdateFormById = async (id: string, payload: any) => {
-    console.log('🚀 ~ UpdateFormById ~ payload:', payload)
     try {
         const form = await db
             .update(JsonForms)

@@ -5,18 +5,18 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 
 const FormUI = () => {
     const { state } = useFormContext()
-    console.log('🚀 ~ FormUI ~ state:', state)
 
-    const { form } = state.form.jsonform
+    const { jsonform: form } = state.form
 
     return (
-        <div className='mx-auto inline-block space-y-8 border p-4'>
+        <div className='mx-auto inline-block min-w-[480px] space-y-8 border p-4'>
             <div className='space-y-2'>
                 <h2 className='text-center text-2xl font-bold'>{form?.title}</h2>
-                <h2 className='text-center text-sm text-gray-400'>{form?.heading}</h2>
+                <h2 className='text-center text-sm text-gray-400'>{form?.subHeading}</h2>
             </div>
 
             <div className='space-y-5'>
@@ -100,6 +100,15 @@ const FormUI = () => {
                                         {field.label}
                                     </label>
                                     <Input type={field.type} placeholder={field.placeholder} name={field.name} />
+                                </>
+                            )}
+
+                            {field.type === 'textarea' && (
+                                <>
+                                    <label className='text-sm text-gray-500' htmlFor={field.name}>
+                                        {field.label}
+                                    </label>
+                                    <Textarea placeholder={field.placeholder} name={field.name}></Textarea>
                                 </>
                             )}
                         </div>

@@ -20,7 +20,7 @@ type Action = { type: ActionTypes.UPDATE_FORM_FIELD; payload: { field: any; inde
 const formReducer = (state: State, action: Action): State => {
     switch (action.type) {
         case ActionTypes.UPDATE_FORM_FIELD:
-            const form = state.form.jsonform.form
+            const { jsonform: form } = state.form
 
             const updatedFields = form.fields.map((field: any, index: number) => (index === action.payload.index ? { ...action.payload.field } : field))
 
@@ -30,10 +30,7 @@ const formReducer = (state: State, action: Action): State => {
                     ...state.form,
                     jsonform: {
                         ...state.form.jsonform,
-                        form: {
-                            ...state.form.jsonform.form,
-                            fields: updatedFields,
-                        },
+                        fields: updatedFields,
                     },
                 },
             }
