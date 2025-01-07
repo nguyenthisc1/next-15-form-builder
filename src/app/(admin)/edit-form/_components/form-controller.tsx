@@ -22,9 +22,9 @@ const FormController = () => {
 
         const response = await UpdateFormById(state.form.id, { column, value })
         if (response) {
-            toast.success('Field updated successfully')
+            toast.success(`${column} updated successfully`)
         } else {
-            toast.error('Failed to update field')
+            toast.error(`Failed to update ${column}`)
         }
 
     }
