@@ -22,9 +22,9 @@ const FormController = () => {
 
         const response = await UpdateFormById(state.form.id, { column, value })
         if (response) {
-            toast.success(`${column} updated successfully`)
+            toast.success(`${column} form updated successfully`)
         } else {
-            toast.error(`Failed to update ${column}`)
+            toast.error(`Failed to update ${column} form`)
         }
 
     }
@@ -67,7 +67,7 @@ const FormController = () => {
 
                     <div className='grid grid-cols-3 gap-6'>
                         {backgroundForm.map((background, index) => (
-                            <div onClick={() => handleUpdateForm('background', background.gradient ?? 'None')} key={index} className={cn('relative h-14 cursor-pointer rounded-lg border-2 text-center text-xs text-white hover:border-primary', controller.background === background.name && 'border-2 pointer-events-none border-primary shadow-lg')} style={{ background: background.gradient }}>
+                            <div onClick={() => handleUpdateForm('background', background.gradient ?? 'None')} key={index} className={cn('relative h-14 cursor-pointer rounded-lg border-2 text-center text-xs text-white hover:border-primary', controller.background === background.gradient && 'border-2 pointer-events-none border-primary shadow-lg')} style={{ background: background.gradient }}>
                                 <div className='absolute left-1/2 top-1/2 min-w-20 -translate-x-1/2 -translate-y-1/2 mix-blend-difference'>{background.name}</div>
                             </div>
                         ))}

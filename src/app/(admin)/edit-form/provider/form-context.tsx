@@ -75,14 +75,8 @@ interface FormProviderProps {
 }
 
 export const FormProvider: React.FC<FormProviderProps> = ({ initialData, children }) => {
-    const [state, dispatch] = useReducer(formReducer, {
-        ...initialData,
-        controller: {
-            theme: 'wireframe',
-            background: 'None',
-            styles: '',
-        },
-    })
+    const [state, dispatch] = useReducer(formReducer, initialData
+    )
 
     return <FormContext.Provider value={{ state, dispatch }}> {children}</FormContext.Provider>
 }
