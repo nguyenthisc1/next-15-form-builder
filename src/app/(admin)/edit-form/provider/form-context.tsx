@@ -20,12 +20,12 @@ enum ActionTypes {
 type Action =
     | { type: ActionTypes.UPDATE_FORM_FIELD; payload: { field: any; index: number } }
     | {
-        type: ActionTypes.UPDATE_FORM_CONTROLLER
-        payload: {
-            column: keyof Controller,
-            value: string
-        }
-    }
+          type: ActionTypes.UPDATE_FORM_CONTROLLER
+          payload: {
+              column: keyof Controller
+              value: string
+          }
+      }
 
 // Reducer function
 const formReducer = (state: State, action: Action): State => {
@@ -46,14 +46,13 @@ const formReducer = (state: State, action: Action): State => {
                 },
             }
         case ActionTypes.UPDATE_FORM_CONTROLLER:
-
             const { controller } = state
 
             return {
                 ...state,
                 controller: {
                     ...controller,
-                    [action.payload.column]: action.payload.value
+                    [action.payload.column]: action.payload.value,
                 },
             }
     }
@@ -75,8 +74,7 @@ interface FormProviderProps {
 }
 
 export const FormProvider: React.FC<FormProviderProps> = ({ initialData, children }) => {
-    const [state, dispatch] = useReducer(formReducer, initialData
-    )
+    const [state, dispatch] = useReducer(formReducer, initialData)
 
     return <FormContext.Provider value={{ state, dispatch }}> {children}</FormContext.Provider>
 }

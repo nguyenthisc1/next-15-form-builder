@@ -8,13 +8,10 @@ import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 
 const FormController = () => {
-
     const { state, dispatch } = useFormContext()
     const { controller } = state
 
-
     const handleUpdateForm = async (column: keyof Controller, value: string) => {
-
         dispatch({
             type: ActionTypes.UPDATE_FORM_CONTROLLER,
             payload: { column, value },
@@ -26,7 +23,6 @@ const FormController = () => {
         } else {
             toast.error(`Failed to update ${column} form`)
         }
-
     }
 
     return (
@@ -67,14 +63,14 @@ const FormController = () => {
 
                     <div className='grid grid-cols-3 gap-6'>
                         {backgroundForm.map((background, index) => (
-                            <div onClick={() => handleUpdateForm('background', background.gradient ?? 'None')} key={index} className={cn('relative h-14 cursor-pointer rounded-lg border-2 text-center text-xs text-white hover:border-primary', controller.background === background.gradient && 'border-2 pointer-events-none border-primary shadow-lg')} style={{ background: background.gradient }}>
+                            <div onClick={() => handleUpdateForm('background', background.gradient ?? 'None')} key={index} className={cn('relative h-14 cursor-pointer rounded-lg border-2 text-center text-xs text-white hover:border-primary', controller.background === background.gradient && 'pointer-events-none border-2 border-primary shadow-lg')} style={{ background: background.gradient }}>
                                 <div className='absolute left-1/2 top-1/2 min-w-20 -translate-x-1/2 -translate-y-1/2 mix-blend-difference'>{background.name}</div>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 
