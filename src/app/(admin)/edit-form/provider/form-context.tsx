@@ -20,13 +20,12 @@ enum ActionTypes {
 type Action =
     | { type: ActionTypes.UPDATE_FORM_FIELD; payload: { field: any; index: number } }
     | {
-          type: ActionTypes.UPDATE_FORM_CONTROLLER
-          payload: {
-              theme: string
-              background: string
-              styles: any
-          }
-      }
+        type: ActionTypes.UPDATE_FORM_CONTROLLER
+        payload: {
+            column: keyof Controller,
+            value: string
+        }
+    }
 
 // Reducer function
 const formReducer = (state: State, action: Action): State => {
@@ -47,10 +46,14 @@ const formReducer = (state: State, action: Action): State => {
                 },
             }
         case ActionTypes.UPDATE_FORM_CONTROLLER:
+
+            const { controller } = state
+
             return {
                 ...state,
                 controller: {
-                    ...action.payload,
+                    ...controller,
+                    [action.payload.column]: action.payload.value
                 },
             }
     }
