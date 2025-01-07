@@ -14,14 +14,14 @@ const FormUI = () => {
     const { controller } = state
 
     return (
-        <div className='col-span-2 border border-border flex justify-center rounded-lg p-4' style={{ background: controller.background }}>
-            <div className='mx-auto inline-block min-w-[480px] space-y-8 border p-4' data-theme={controller!.theme} >
+        <div className='col-span-2 flex justify-center rounded-lg border border-border p-4' style={{ background: controller.background }}>
+            <div className='mx-auto inline-block min-w-[480px] space-y-8 border p-4' data-theme={controller!.theme}>
                 <div className='space-y-2'>
                     <h2 className='text-center text-2xl font-bold'>{form?.title}</h2>
                     <h2 className='text-center text-sm text-gray-400'>{form?.subHeading}</h2>
                 </div>
 
-                <div className='space-y-5' >
+                <div className='space-y-5'>
                     {form?.fields?.map((field: any, index: number) => (
                         <div key={index} className='relative'>
                             <div className='form-field space-y-1'>
@@ -115,7 +115,7 @@ const FormUI = () => {
                                 )}
                             </div>
 
-                            <div className='absolute right-0 top-0 cursor-pointer' >
+                            <div className='absolute right-0 top-0 cursor-pointer'>
                                 <FieldEdit defaultValues={{ field, index }} />
                             </div>
                         </div>

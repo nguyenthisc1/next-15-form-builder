@@ -6,7 +6,7 @@ import { createContext, type Dispatch, type ReactNode, useContext, useReducer } 
 interface State {
     controller: Controller
     form: {
-        id: Form['id'],
+        id: Form['id']
         jsonform: Form['jsonform']
     }
 }
@@ -14,18 +14,19 @@ interface State {
 // Define action types
 enum ActionTypes {
     UPDATE_FORM_FIELD = 'UPDATE_FORM_FIELD',
-    UPDATE_FORM_CONTROLLER = 'UPDATE_FORM_CONTROLLER'
+    UPDATE_FORM_CONTROLLER = 'UPDATE_FORM_CONTROLLER',
 }
 
-type Action = { type: ActionTypes.UPDATE_FORM_FIELD; payload: { field: any; index: number } } |
-
-{
-    type: ActionTypes.UPDATE_FORM_CONTROLLER; payload: {
-        theme: string,
-        background: string
-        styles: any
-    }
-}
+type Action =
+    | { type: ActionTypes.UPDATE_FORM_FIELD; payload: { field: any; index: number } }
+    | {
+          type: ActionTypes.UPDATE_FORM_CONTROLLER
+          payload: {
+              theme: string
+              background: string
+              styles: any
+          }
+      }
 
 // Reducer function
 const formReducer = (state: State, action: Action): State => {
@@ -46,13 +47,11 @@ const formReducer = (state: State, action: Action): State => {
                 },
             }
         case ActionTypes.UPDATE_FORM_CONTROLLER:
-
             return {
                 ...state,
                 controller: {
                     ...action.payload,
-                }
-
+                },
             }
     }
 }
@@ -74,14 +73,15 @@ interface FormProviderProps {
 
 export const FormProvider: React.FC<FormProviderProps> = ({ initialData, children }) => {
     const [state, dispatch] = useReducer(formReducer, {
-        ...initialData, controller: {
+        ...initialData,
+        controller: {
             theme: 'wireframe',
             background: 'None',
-            styles: ''
-        }
+            styles: '',
+        },
     })
 
-    return <FormContext.Provider value={{ state, dispatch }}> {children}</FormContext.Provider >
+    return <FormContext.Provider value={{ state, dispatch }}> {children}</FormContext.Provider>
 }
 
 // Custom hook to use the context

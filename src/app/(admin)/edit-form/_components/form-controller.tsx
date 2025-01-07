@@ -6,19 +6,15 @@ import { type Controller } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 const FormController = () => {
-
     const { state, dispatch } = useFormContext()
 
     const { controller } = state
 
-
     const handleUpdateForm = (payload: Controller) => {
-
         dispatch({
             type: ActionTypes.UPDATE_FORM_CONTROLLER,
-            payload: payload
+            payload: payload,
         })
-
     }
 
     return (
@@ -27,9 +23,9 @@ const FormController = () => {
                 <div className='space-y-2'>
                     <h3>Themes</h3>
 
-                    <Select defaultValue={controller.theme} onValueChange={(value: string) => handleUpdateForm({ ...controller, theme: value })} >
+                    <Select defaultValue={controller.theme} onValueChange={(value: string) => handleUpdateForm({ ...controller, theme: value })}>
                         <SelectTrigger>
-                            <SelectValue placeholder="Theme" />
+                            <SelectValue placeholder='Theme' />
                         </SelectTrigger>
                         <SelectContent>
                             {themes.default.map((theme: any, index: number) => (
@@ -59,20 +55,15 @@ const FormController = () => {
 
                     <div className='grid grid-cols-3 gap-6'>
                         {backgroundForm.map((background, index) => (
-                            <div onClick={() => handleUpdateForm({ ...controller, background: background.gradient })} key={index} className={cn('cursor-pointer relative h-14 rounded-lg text-center text-xs text-white border-2 hover:border-primary',
-                                controller.background === background.name && 'border-2 shadow-lg border-primary'
-                            )} style={{ background: background.gradient }}>
-                                <div className='min-w-20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mix-blend-difference'>{background.name}</div>
+                            <div onClick={() => handleUpdateForm({ ...controller, background: background.gradient })} key={index} className={cn('relative h-14 cursor-pointer rounded-lg border-2 text-center text-xs text-white hover:border-primary', controller.background === background.name && 'border-2 border-primary shadow-lg')} style={{ background: background.gradient }}>
+                                <div className='absolute left-1/2 top-1/2 min-w-20 -translate-x-1/2 -translate-y-1/2 mix-blend-difference'>{background.name}</div>
                             </div>
                         ))}
                     </div>
                 </div>
-            </div >
-        </div >
+            </div>
+        </div>
     )
 }
-
-
-
 
 export default FormController
