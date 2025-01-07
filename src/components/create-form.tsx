@@ -60,7 +60,7 @@ const CreateForm = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button>
+                <Button className='w-full'>
                     <Plus />
                     Create Form
                 </Button>

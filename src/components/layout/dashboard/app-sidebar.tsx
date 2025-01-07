@@ -1,11 +1,11 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import CreateForm from '@/components/create-form'
 import { Progress } from '@/components/ui/progress'
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar'
 import { cn } from '@/lib/utils'
 import { UserButton, useUser } from '@clerk/nextjs'
-import { LibraryBig, LineChart, MessagesSquare, Plus, Shield } from 'lucide-react'
+import { LibraryBig, LineChart, MessagesSquare, Shield } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -59,10 +59,7 @@ const AppSidebar = () => {
 
                 {open && (
                     <div className='mt-4 w-full px-2'>
-                        <Button className='w-full'>
-                            <Plus />
-                            <span>Create Form</span>
-                        </Button>
+                        <CreateForm />
                         <div className='my-7 space-y-2'>
                             <Progress value={33} />
                             <h2 className='text-sm text-gray-600'>

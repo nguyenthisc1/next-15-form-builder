@@ -25,7 +25,7 @@ const FieldEdit = ({ defaultValues }: Props) => {
             payload: { field: values.field, index: values.index },
         })
 
-        const response = await UpdateFormById(state.form.id, state.form.jsonform)
+        const response = await UpdateFormById(state.form.id.toString(), state.form.jsonform)
         if (response) {
             toast.success('Field updated successfully')
         } else {

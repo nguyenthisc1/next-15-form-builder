@@ -1,6 +1,6 @@
 import { db } from '@/configs/drizzle'
 import { JsonForms } from '@/configs/schema'
-import { type Doc } from '@/lib/types'
+import { type Doc } from '@/lib/drizzle-types'
 import { DrizzleError, eq } from 'drizzle-orm'
 import { cache } from 'react'
 

@@ -89,7 +89,7 @@ export default {
         },
     },
     daisyui: {
-        themes: ['cupcake', 'dark', 'cmyk'],
+        themes: ['cupcake', 'dark', 'cmyk', 'light','aqua', 'bumblebee', 'retro'],
     },
     plugins: [tailwindcssAnimate, daisyui],
 } satisfies Config

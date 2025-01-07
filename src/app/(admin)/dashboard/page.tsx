@@ -1,4 +1,4 @@
-import CreateForm from '@/app/(admin)/dashboard/_components/create-form'
+import CreateForm from '@/components/create-form'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/components/ui/breadcrumb'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@radix-ui/react-separator'
