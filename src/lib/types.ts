@@ -1,20 +1,27 @@
-export type Form = {
-    id: number
-    jsonform: {
-        title: string
-        subHeading: string
-        fields: {
-            type: string
-            name: string
-            label: string
-            placeholder: string
-            options?: string[]
-        }[]
-    }
+export type Field = {
+    type: string
+    name: string
+    label: string
+    placeholder: string
+    options?: string[]
+}
+
+export type JsonForm = {
+    title: string
+    subHeading: string
+    fields: Field[]
 }
 
 export type Controller = {
-    themeScheme: string,
-    theme: string,
+    theme: string
     background: string
+    styles: any
+}
+
+export type Form = {
+    id: number
+    jsonform: JsonForm
+    theme: Controller['theme']
+    background: Controller['background']
+    styles: Controller['styles']
 }

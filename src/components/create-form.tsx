@@ -36,6 +36,9 @@ const CreateForm = () => {
                     .insert(JsonForms)
                     .values({
                         jsonform: resultText,
+                        background: 'None',
+                        theme: 'light',
+                        styles: '',
                         createdBy: user?.primaryEmailAddress?.emailAddress ?? user?.id ?? '',
                     })
                     .returning({ id: JsonForms.id })

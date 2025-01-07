@@ -41,12 +41,8 @@ const PageClient = () => {
                         <span>Back</span>
                     </div>
                     <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
-                        <div className='rounded-lg bg-gray-50 p-4'>
-                            <FormController />
-                        </div>
-                        <div className='col-span-2 flex justify-center rounded-lg bg-gray-50 p-4'>
-                            <FormUI />
-                        </div>
+                        <FormController />
+                        <FormUI />
                     </div>
                 </div>
             </div>

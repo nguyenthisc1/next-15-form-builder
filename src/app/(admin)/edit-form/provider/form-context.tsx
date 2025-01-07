@@ -5,7 +5,10 @@ import { createContext, type Dispatch, type ReactNode, useContext, useReducer } 
 
 interface State {
     controller: Controller
-    form: Form
+    form: {
+        id: Form['id'],
+        jsonform: Form['jsonform']
+    }
 }
 
 // Define action types
@@ -18,9 +21,9 @@ type Action = { type: ActionTypes.UPDATE_FORM_FIELD; payload: { field: any; inde
 
 {
     type: ActionTypes.UPDATE_FORM_CONTROLLER; payload: {
-        themeScheme: string,
         theme: string,
         background: string
+        styles: any
     }
 }
 
@@ -72,9 +75,9 @@ interface FormProviderProps {
 export const FormProvider: React.FC<FormProviderProps> = ({ initialData, children }) => {
     const [state, dispatch] = useReducer(formReducer, {
         ...initialData, controller: {
-            themeScheme: 'light',
             theme: 'wireframe',
-            background: 'None'
+            background: 'None',
+            styles: ''
         }
     })
 
