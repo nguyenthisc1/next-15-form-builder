@@ -1,6 +1,6 @@
 'use client'
 
-import { ActionTypes, useFormContext } from '@/app/(admin)/edit-form/provider/form-context'
+import { ActionTypes, useFormContext } from '@/app/(admin)/form/provider/form-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent } from '@/components/ui/popover'

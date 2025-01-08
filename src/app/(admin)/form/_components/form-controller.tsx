@@ -1,4 +1,4 @@
-import { ActionTypes, useFormContext } from '@/app/(admin)/edit-form/provider/form-context'
+import { ActionTypes, useFormContext } from '@/app/(admin)/form/provider/form-context'
 import backgroundForm from '@/app/_data/background-form'
 import * as themes from '@/app/_data/themes'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -69,6 +69,13 @@ const FormController = () => {
                         ))}
                     </div>
                 </div>
+
+
+                {/* <div className='space-y-2'>
+                    <h3>Styles</h3>
+
+                   
+                </div> */}
             </div>
         </div>
     )

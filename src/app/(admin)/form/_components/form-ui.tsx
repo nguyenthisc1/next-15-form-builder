@@ -1,5 +1,5 @@
-import FieldEdit from '@/app/(admin)/edit-form/_components/field-edit'
-import { useFormContext } from '@/app/(admin)/edit-form/provider/form-context'
+import FieldEdit from '@/app/(admin)/form/_components/field-edit'
+import { useFormContext } from '@/app/(admin)/form/provider/form-context'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'

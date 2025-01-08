@@ -4,6 +4,7 @@ import { type Controller, type Form } from '@/lib/types'
 import { createContext, type Dispatch, type ReactNode, useContext, useReducer } from 'react'
 
 interface State {
+    status?: 'preview' | 'edit'
     controller: Controller
     form: {
         id: Form['id']
@@ -74,7 +75,7 @@ interface FormProviderProps {
 }
 
 export const FormProvider: React.FC<FormProviderProps> = ({ initialData, children }) => {
-    const [state, dispatch] = useReducer(formReducer, initialData)
+    const [state, dispatch] = useReducer(formReducer, {...initialData, status: 'edit'})
 
     return <FormContext.Provider value={{ state, dispatch }}> {children}</FormContext.Provider>
 }
