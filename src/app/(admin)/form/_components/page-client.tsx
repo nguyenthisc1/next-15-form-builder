@@ -43,25 +43,28 @@ const PageClient = () => {
             </header>
             <div className='h-full p-2'>
                 <div className='h-full space-y-5 rounded-lg border border-sidebar-border p-4'>
-                    <div className='flex justify-between items-center'>
+                    <div className='flex items-center justify-between'>
                         <div className='flex cursor-pointer items-center gap-2' onClick={() => router.back()}>
                             <ChevronLeft />
                             <span>Back</span>
                         </div>
 
                         <div className='flex items-center gap-2'>
-
                             <Button onClick={handleSwitchStatusForm}>
-                                {preview ?
+                                {preview ? (
                                     <>
                                         <Edit /> Edit
-                                    </> : <>
+                                    </>
+                                ) : (
+                                    <>
                                         <SquareArrowOutUpRight /> Live Preview
                                     </>
-                                }
+                                )}
                             </Button>
 
-                            <Button className='bg-success'><Share2 /> Share</Button>
+                            <Button className='bg-success'>
+                                <Share2 /> Share
+                            </Button>
                         </div>
                     </div>
                     <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>

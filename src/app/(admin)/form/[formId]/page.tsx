@@ -9,7 +9,7 @@ const EditForm = async ({ params }: { params: Promise<{ formId: string }> }) => 
     const form: Form = await GetFormById(formId).then((res) => {
         return { id: res.id, jsonform: JSON.parse(res.jsonform), background: res.background, theme: res.theme, styles: res.styles }
     })
-    
+
     console.log('🚀 ~ constform:Form=awaitGetFormById ~ form:', form)
     return (
         <>

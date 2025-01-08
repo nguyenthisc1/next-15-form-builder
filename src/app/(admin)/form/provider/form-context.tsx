@@ -16,22 +16,22 @@ interface State {
 enum ActionTypes {
     UPDATE_FORM_FIELD = 'UPDATE_FORM_FIELD',
     UPDATE_FORM_CONTROLLER = 'UPDATE_FORM_CONTROLLER',
-    SWITCH_FORM_STATUS = 'SWITCH_FORM_STATUS'
+    SWITCH_FORM_STATUS = 'SWITCH_FORM_STATUS',
 }
 
 type Action =
     | { type: ActionTypes.UPDATE_FORM_FIELD; payload: { field: any; index: number } }
     | {
-        type: ActionTypes.UPDATE_FORM_CONTROLLER
-        payload: {
-            column: keyof Controller
-            value: string
-        }
-    }
+          type: ActionTypes.UPDATE_FORM_CONTROLLER
+          payload: {
+              column: keyof Controller
+              value: string
+          }
+      }
     | {
-        type: ActionTypes.SWITCH_FORM_STATUS
-        payload: { status: State['status'] }
-    }
+          type: ActionTypes.SWITCH_FORM_STATUS
+          payload: { status: State['status'] }
+      }
 
 // Reducer function
 const formReducer = (state: State, action: Action): State => {
@@ -64,7 +64,7 @@ const formReducer = (state: State, action: Action): State => {
         case ActionTypes.SWITCH_FORM_STATUS:
             return {
                 ...state,
-                status: action.payload.status
+                status: action.payload.status,
             }
     }
 }

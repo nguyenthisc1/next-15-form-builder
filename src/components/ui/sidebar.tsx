@@ -79,18 +79,20 @@ const SidebarProvider = React.forwardRef<
         [setOpenProp, open]
     )
 
-    const setPreview = React.useCallback((value: boolean | ((value: boolean) => boolean)) => {
-        const previewState = typeof value === 'function' ? value(preview) : value
-        if (setPreviewProp) {
-            setPreviewProp(previewState)
-        } else {
-            _setPreview(previewState)
-        }
+    const setPreview = React.useCallback(
+        (value: boolean | ((value: boolean) => boolean)) => {
+            const previewState = typeof value === 'function' ? value(preview) : value
+            if (setPreviewProp) {
+                setPreviewProp(previewState)
+            } else {
+                _setPreview(previewState)
+            }
 
-        // This sets the cookie to keep the sidebar state.
-        document.cookie = `${SIDEBAR_COOKIE_NAME}=${previewState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
-    },
-        [preview, setPreviewProp])
+            // This sets the cookie to keep the sidebar state.
+            document.cookie = `${SIDEBAR_COOKIE_NAME}=${previewState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+        },
+        [preview, setPreviewProp]
+    )
 
     // Helper to toggle the sidebar.
     const toggleSidebar = React.useCallback(() => {
@@ -164,7 +166,7 @@ const Sidebar = React.forwardRef<
 
     if (collapsible === 'none') {
         return (
-            <div className={cn('flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground', preview && "!hidden",className)} ref={ref} {...props}>
+            <div className={cn('flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground', preview && '!hidden', className)} ref={ref} {...props}>
                 {children}
             </div>
         )
@@ -191,7 +193,7 @@ const Sidebar = React.forwardRef<
     }
 
     return (
-        <div ref={ref} className={cn('group peer hidden text-sidebar-foreground md:block w-[--sidebar-width] transition-[opacity,visibility]',  preview && "opacity-0 invisible w-0")} data-state={state} data-collapsible={state === 'collapsed' ? collapsible : ''} data-variant={variant} data-side={side}>
+        <div ref={ref} className={cn('group peer hidden w-[--sidebar-width] text-sidebar-foreground transition-[opacity,visibility] md:block', preview && 'invisible w-0 opacity-0')} data-state={state} data-collapsible={state === 'collapsed' ? collapsible : ''} data-variant={variant} data-side={side}>
             {/* This is what handles the sidebar gap on desktop */}
             <div className={cn('relative h-svh w-[--sidebar-width] bg-transparent transition-[width] duration-200 ease-linear', 'group-data-[collapsible=offcanvas]:w-0', 'group-data-[side=right]:rotate-180', variant === 'floating' || variant === 'inset' ? 'group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]' : 'group-data-[collapsible=icon]:w-[--sidebar-width-icon]')} />
             <div
