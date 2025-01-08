@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { useSidebar } from '@/components/ui/sidebar'
 import { Textarea } from '@/components/ui/textarea'
 
 const FormUI = () => {
@@ -12,9 +13,10 @@ const FormUI = () => {
 
     const { jsonform: form } = state.form
     const { controller } = state
+    const { preview } = useSidebar()
 
     return (
-        <div className='col-span-2 flex justify-center rounded-lg border border-border p-4' style={{ background: controller.background }}>
+        <div className='flex justify-center rounded-lg border border-border p-4' style={{ background: controller.background }}>
             <div className='mx-auto inline-block min-w-[480px] space-y-8 border p-4' data-theme={controller!.theme}>
                 <div className='space-y-2'>
                     <h2 className='text-center text-2xl font-bold'>{form?.title}</h2>
@@ -115,9 +117,11 @@ const FormUI = () => {
                                 )}
                             </div>
 
-                            <div className='absolute right-0 top-0 cursor-pointer'>
-                                <FieldEdit defaultValues={{ field, index }} />
-                            </div>
+                            {!preview && (
+                                <div className='absolute right-0 top-0 cursor-pointer'>
+                                    <FieldEdit defaultValues={{ field, index }} />
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>

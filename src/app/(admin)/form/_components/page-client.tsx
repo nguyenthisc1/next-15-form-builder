@@ -3,19 +3,22 @@
 
 import FormController from '@/app/(admin)/form/_components/form-controller'
 import FormUI from '@/app/(admin)/form/_components/form-ui'
-import { useFormContext } from '@/app/(admin)/form/provider/form-context'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { SidebarTrigger } from '@/components/ui/sidebar'
+import { SidebarTrigger, useSidebar } from '@/components/ui/sidebar'
+import { cn } from '@/lib/utils'
 
-import { ChevronLeft, Share2, SquareArrowOutUpRight } from 'lucide-react'
-import Link from 'next/link'
+import { ChevronLeft, Edit, Share2, SquareArrowOutUpRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 const PageClient = () => {
     const router = useRouter()
-    const { state } = useFormContext()
+    const { preview, setPreview } = useSidebar()
+
+    const handleSwitchStatusForm = () => {
+        setPreview(!preview)
+    }
 
     return (
         <>
@@ -31,7 +34,7 @@ const PageClient = () => {
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator className='hidden md:block' />
                                 <BreadcrumbItem>
-                                    <BreadcrumbPage>Edit Form</BreadcrumbPage>
+                                    <BreadcrumbPage>Form</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
@@ -47,15 +50,25 @@ const PageClient = () => {
                         </div>
 
                         <div className='flex items-center gap-2'>
-                            <Link href={`/live-form/${state.form.id}`} target='_blank'>
-                                <Button><SquareArrowOutUpRight /> Live Preview</Button>
-                            </Link>
+
+                            <Button onClick={handleSwitchStatusForm}>
+                                {preview ?
+                                    <>
+                                        <Edit /> Edit
+                                    </> : <>
+                                        <SquareArrowOutUpRight /> Live Preview
+                                    </>
+                                }
+                            </Button>
+
                             <Button className='bg-success'><Share2 /> Share</Button>
                         </div>
                     </div>
                     <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
-                        <FormController />
-                        <FormUI />
+                        {!preview && <FormController />}
+                        <div className={cn('col-span-2', preview && 'col-span-3')}>
+                            <FormUI />
+                        </div>
                     </div>
                 </div>
             </div>
