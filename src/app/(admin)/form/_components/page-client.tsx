@@ -22,7 +22,7 @@ const PageClient = () => {
 
     return (
         <>
-            <header className='h-16 shrink-0 gap-2 p-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12'>
+            <header className={cn('h-16 shrink-0 gap-2 p-2 transition-[width,height,transform] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 ', preview && '-translate-y-full h-0')}>
                 <div className='flex size-full items-center rounded-lg border border-sidebar-border'>
                     <div className='flex items-center gap-2 px-4'>
                         <SidebarTrigger className='-ml-1' />

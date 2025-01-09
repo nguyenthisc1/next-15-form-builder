@@ -193,7 +193,7 @@ const Sidebar = React.forwardRef<
     }
 
     return (
-        <div ref={ref} className={cn('group peer hidden w-[--sidebar-width] text-sidebar-foreground transition-[opacity,visibility] md:block', preview && 'invisible w-0 opacity-0')} data-state={state} data-collapsible={state === 'collapsed' ? collapsible : ''} data-variant={variant} data-side={side}>
+        <div ref={ref} className={cn('group peer w-[16rem] text-sidebar-foreground transition-[opacity,visibility,width] md:block', preview && 'invisible w-0 opacity-0')} data-state={state} data-collapsible={state === 'collapsed' ? collapsible : ''} data-variant={variant} data-side={side}>
             {/* This is what handles the sidebar gap on desktop */}
             <div className={cn('relative h-svh w-[--sidebar-width] bg-transparent transition-[width] duration-200 ease-linear', 'group-data-[collapsible=offcanvas]:w-0', 'group-data-[side=right]:rotate-180', variant === 'floating' || variant === 'inset' ? 'group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]' : 'group-data-[collapsible=icon]:w-[--sidebar-width-icon]')} />
             <div
