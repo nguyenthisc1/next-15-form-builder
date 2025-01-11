@@ -22,7 +22,7 @@ const PageClient = () => {
 
     return (
         <>
-            <header className={cn('h-16 shrink-0 gap-2 p-2 transition-[width,height,transform] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 ', preview && '-translate-y-full h-0')}>
+            <header className={cn('h-16 shrink-0 gap-2 p-2 transition-[width,height,transform,padding] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 overflow-hidden', preview && '-translate-y-full h-0  p-0')}>
                 <div className='flex size-full items-center rounded-lg border border-sidebar-border'>
                     <div className='flex items-center gap-2 px-4'>
                         <SidebarTrigger className='-ml-1' />
@@ -41,7 +41,7 @@ const PageClient = () => {
                     </div>
                 </div>
             </header>
-            <div className='h-full p-2'>
+            <div className={cn('h-full', !preview && 'p-2')}>
                 <div className='h-full space-y-5 rounded-lg border border-sidebar-border p-4'>
                     <div className='flex items-center justify-between'>
                         <div className='flex cursor-pointer items-center gap-2' onClick={() => router.back()}>
