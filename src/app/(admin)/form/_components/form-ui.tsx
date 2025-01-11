@@ -18,11 +18,27 @@ const FormUI = () => {
     const { preview } = useSidebar()
 
     return (
-        <div className='flex justify-center rounded-lg border border-border p-4' style={{ background: controller.background }}>
+        <div className='flex justify-center w-full items-center rounded-lg border border-border p-4' style={{ background: controller.background }}>
             <div className='mx-auto inline-block min-w-[480px] space-y-8 border p-4' data-theme={controller!.theme}>
                 <div className='space-y-2'>
-                    <h2 className='text-center text-2xl font-bold'>{form?.title}</h2>
-                    <h2 className='text-center text-sm text-gray-400'>{form?.subHeading}</h2>
+                    <div className='relative'>
+                        <h2 className='text-center text-2xl font-bold'>{form?.title}</h2>
+                        {!preview && (
+                            <div className='absolute right-0 top-0 cursor-pointer'>
+                                <FieldEdit defaultValues={{ key: 'title', field: { label: form.title } }} />
+                            </div>
+                        )}
+                    </div>
+                    <div className='relative'>
+
+                        <h3 className='text-center m-auto text-sm text-gray-400 max-w-[80%]'>{form?.subHeading}</h3>
+                        {!preview && (
+                            <div className='absolute right-0 top-0 cursor-pointer'>
+                                <FieldEdit defaultValues={{ key: 'subHeading', field: { label: form.subHeading } }} />
+                            </div>
+                        )}
+                    </div>
+
                 </div>
 
                 <form className='space-y-5'>
@@ -125,7 +141,7 @@ const FormUI = () => {
 
                             {!preview && (
                                 <div className='absolute right-0 top-0 cursor-pointer'>
-                                    <FieldEdit defaultValues={{ field, index }} />
+                                    <FieldEdit defaultValues={{ key: 'fields', field, index }} />
                                 </div>
                             )}
 

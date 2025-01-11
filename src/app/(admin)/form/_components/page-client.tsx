@@ -41,9 +41,9 @@ const PageClient = () => {
                     </div>
                 </div>
             </header>
-            <div className={cn('h-full', !preview && 'p-2')}>
-                <div className='h-full space-y-5 rounded-lg border border-sidebar-border p-4'>
-                    <div className='flex items-center justify-between'>
+            <div className={cn('h-full')}>
+                <div className={cn('h-full space-y-5', !preview && 'rounded-lg border border-sidebar-border')}>
+                    <div className='flex items-center justify-between px-2 pt-4'>
                         <div className='flex cursor-pointer items-center gap-2' onClick={() => router.back()}>
                             <ChevronLeft />
                             <span>Back</span>
@@ -67,9 +67,9 @@ const PageClient = () => {
                             </Button>
                         </div>
                     </div>
-                    <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
+                    <div className={cn('grid grid-cols-1 gap-4 md:grid-cols-3 transition-[min-height] min-h-0 px-2', preview && 'px-0 min-h-[calc(100%-60px)]')}>
                         {!preview && <FormController />}
-                        <div className={cn('col-span-2', preview && 'col-span-3')}>
+                        <div className={cn('col-span-2 flex items-stretch', preview && 'col-span-3')}>
                             <FormUI />
                         </div>
                     </div>

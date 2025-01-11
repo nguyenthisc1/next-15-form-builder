@@ -20,23 +20,24 @@ enum ActionTypes {
 }
 
 type Action =
-    | { type: ActionTypes.UPDATE_FORM_FIELD; payload: { field: any; index: number } }
+    | { type: ActionTypes.UPDATE_FORM_FIELD; payload: { key: string; field: any; index?: number } }
     | {
-          type: ActionTypes.UPDATE_FORM_CONTROLLER
-          payload: {
-              column: keyof Controller
-              value: string
-          }
-      }
+        type: ActionTypes.UPDATE_FORM_CONTROLLER
+        payload: {
+            column: keyof Controller
+            value: string
+        }
+    }
     | {
-          type: ActionTypes.SWITCH_FORM_STATUS
-          payload: { status: State['status'] }
-      }
+        type: ActionTypes.SWITCH_FORM_STATUS
+        payload: { status: State['status'] }
+    }
 
 // Reducer function
 const formReducer = (state: State, action: Action): State => {
     switch (action.type) {
         case ActionTypes.UPDATE_FORM_FIELD:
+            console.log("🚀 ~ formReducer ~ action:", action)
             const { jsonform: form } = state.form
 
             const updatedFields = form.fields.map((field: any, index: number) => (index === action.payload.index ? { ...action.payload.field } : field))
@@ -47,6 +48,7 @@ const formReducer = (state: State, action: Action): State => {
                     ...state.form,
                     jsonform: {
                         ...state.form.jsonform,
+                        [action.payload.key]: action.payload.field.label,
                         fields: updatedFields,
                     },
                 },

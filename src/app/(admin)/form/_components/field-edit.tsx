@@ -11,7 +11,11 @@ import { memo, useState } from 'react'
 import { toast } from 'sonner'
 
 type Props = {
-    defaultValues: any
+    defaultValues: {
+        key: string,
+        field?: any,
+        index?: number
+    }
 }
 
 const FieldEdit = ({ defaultValues }: Props) => {
@@ -22,10 +26,11 @@ const FieldEdit = ({ defaultValues }: Props) => {
     const handleUpdateField = async () => {
         dispatch({
             type: ActionTypes.UPDATE_FORM_FIELD,
-            payload: { field: values.field, index: values.index },
+            payload: { key: values.key, field: values.field, index: values.index },
         })
 
         const response = await UpdateFormById(state.form.id, { column: 'jsonform', value: state.form.jsonform })
+        console.log("🚀 ~ handleUpdateField ~ response:", response)
         if (response) {
             toast.success('Field updated successfully')
         } else {
@@ -46,7 +51,7 @@ const FieldEdit = ({ defaultValues }: Props) => {
                         <div className='h-3'></div>
                         <div className='space-y-5'>
                             <div className='space-y-1'>
-                                <label className='text-sm text-gray-500'>Label name</label>
+                                <label className='text-sm text-gray-500'>Label</label>
                                 <Input
                                     type='text'
                                     defaultValue={defaultValues.field.label}
@@ -62,23 +67,26 @@ const FieldEdit = ({ defaultValues }: Props) => {
                                 />
                             </div>
 
-                            <div className='space-y-1'>
-                                <label className='text-sm text-gray-500'>Placeholder name</label>
-                                <Input
-                                    type='text'
-                                    defaultValue={defaultValues.field.placeholder}
-                                    onChange={(e) =>
-                                        setvalues({
-                                            ...values,
-                                            field: {
-                                                ...values.field,
-                                                placeholder: e.target.value,
-                                            },
-                                        })
-                                    }
-                                />
-                            </div>
-
+                            {
+                                defaultValues.field.placeholder && (
+                                    <div className='space-y-1'>
+                                        <label className='text-sm text-gray-500'>Placeholder</label>
+                                        <Input
+                                            type='text'
+                                            defaultValue={defaultValues.field.placeholder}
+                                            onChange={(e) =>
+                                                setvalues({
+                                                    ...values,
+                                                    field: {
+                                                        ...values.field,
+                                                        placeholder: e.target.value,
+                                                    },
+                                                })
+                                            }
+                                        />
+                                    </div>
+                                )
+                            }
                             <Button onClick={handleUpdateField}>Update</Button>
                         </div>
                     </PopoverContent>
