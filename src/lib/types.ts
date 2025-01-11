@@ -9,6 +9,7 @@ export type Field = {
 export type JsonForm = {
     title: string
     subHeading: string
+    submit: string
     fields: Field[]
 }
 

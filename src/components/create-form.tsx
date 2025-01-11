@@ -18,9 +18,10 @@ const CreateForm = () => {
 
     const [input, setInput] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(false)
     const { user } = useUser()
 
-    const PROM = `, on the basis of description please give form in json format with form title, form heading, form field, form name, form type, placeholder name and form label. Form title key is title, form heading key is subHeading, form field key is fields it is array have keys name, type, label, placeholder, generate with json format`
+    const PROM = `, on the basis of description please give form title, form heading, form field. Form title key is title, form heading key is subHeading, form field key is fields it is array have keys name, type, label, placeholder, submit. Response only object, generate with json format`
 
     const onCreateForm = async () => {
         setLoading(true)
@@ -49,7 +50,7 @@ const CreateForm = () => {
 
                 if (id) {
                     toast.success('Form created successfully')
-                    router.push(`/edit-form/${id}`)
+                    router.push(`/form/${id}`)
                 }
             }
         } catch (error) {
@@ -57,11 +58,12 @@ const CreateForm = () => {
             console.error('Error creating form:', error)
         } finally {
             setLoading(false)
+            setOpen(false)
         }
     }
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button className='w-full'>
                     <Plus />

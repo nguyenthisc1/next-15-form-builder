@@ -4,7 +4,7 @@ import { type Controller, type Form } from '@/lib/types'
 import { createContext, type Dispatch, type ReactNode, useContext, useReducer } from 'react'
 
 interface State {
-    status: 'preview' | 'edit'
+    status?: 'preview' | 'edit'
     controller: Controller
     form: {
         id: Form['id']

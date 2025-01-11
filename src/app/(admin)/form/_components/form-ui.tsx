@@ -1,5 +1,6 @@
 import FieldEdit from '@/app/(admin)/form/_components/field-edit'
 import { useFormContext } from '@/app/(admin)/form/provider/form-context'
+import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -12,6 +13,7 @@ const FormUI = () => {
     const { state } = useFormContext()
 
     const { jsonform: form } = state.form
+    console.log("🚀 ~ FormUI ~ form:", form)
     const { controller } = state
     const { preview } = useSidebar()
 
@@ -23,7 +25,7 @@ const FormUI = () => {
                     <h2 className='text-center text-sm text-gray-400'>{form?.subHeading}</h2>
                 </div>
 
-                <div className='space-y-5'>
+                <form className='space-y-5'>
                     {form?.fields?.map((field: any, index: number) => (
                         <div key={index} className='relative'>
                             <div className='form-field space-y-1'>
@@ -115,6 +117,10 @@ const FormUI = () => {
                                         <Textarea placeholder={field.placeholder} name={field.name}></Textarea>
                                     </>
                                 )}
+
+                                {field.type === 'submit' && (
+                                    <Button name={field.name} >{field.label}</Button>
+                                )}
                             </div>
 
                             {!preview && (
@@ -122,9 +128,12 @@ const FormUI = () => {
                                     <FieldEdit defaultValues={{ field, index }} />
                                 </div>
                             )}
+
+
                         </div>
                     ))}
-                </div>
+
+                </form>
             </div>
         </div>
     )
