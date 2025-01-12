@@ -1,9 +1,9 @@
-import { db } from '@/configs/drizzle';
-import { DrizzleError, eq } from 'drizzle-orm';
-import { JsonForms } from './../../../../configs/schema';
+import { db } from '@/configs/drizzle'
+import { DrizzleError, eq } from 'drizzle-orm'
+import { JsonForms } from './../../../../configs/schema'
 
 export const UpdateFormById = async (id: number, payload: { column: string; value: any }) => {
-    console.log("🚀 ~ UpdateFormById ~ payload:", payload)
+    console.log('🚀 ~ UpdateFormById ~ payload:', payload)
     try {
         const form = await db
             .update(JsonForms)

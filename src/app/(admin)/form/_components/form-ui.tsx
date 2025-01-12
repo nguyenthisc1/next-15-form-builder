@@ -17,8 +17,7 @@ const FormUI = () => {
     const { preview } = useSidebar()
 
     return (
-        <div className='flex justify-center w-full items-center rounded-lg border border-border p-4' style={{ background: controller.background }}>
-
+        <div className='flex w-full items-center justify-center rounded-lg border border-border p-4' style={{ background: controller.background }}>
             <div className='mx-auto inline-block min-w-[480px] space-y-8 border p-4' data-theme={controller!.theme}>
                 <div className='space-y-2'>
                     <div className='relative'>
@@ -30,15 +29,13 @@ const FormUI = () => {
                         )}
                     </div>
                     <div className='relative'>
-
-                        <h3 className='text-center m-auto text-sm text-gray-400 max-w-[80%]'>{jsonform?.subHeading}</h3>
+                        <h3 className='m-auto max-w-[80%] text-center text-sm text-gray-400'>{jsonform?.subHeading}</h3>
                         {!preview && (
                             <div className='absolute right-0 top-0 cursor-pointer'>
                                 <FieldEdit defaultValues={{ key: 'subHeading', field: { label: jsonform.subHeading } }} />
                             </div>
                         )}
                     </div>
-
                 </div>
 
                 <form className='space-y-5'>
@@ -134,9 +131,7 @@ const FormUI = () => {
                                     </>
                                 )}
 
-                                {field.type === 'submit' && (
-                                    <Button name={field.name} >{field.label}</Button>
-                                )}
+                                {field.type === 'submit' && <Button name={field.name}>{field.label}</Button>}
                             </div>
 
                             {!preview && (
@@ -144,11 +139,8 @@ const FormUI = () => {
                                     <FieldEdit defaultValues={{ key: 'field', field, index }} />
                                 </div>
                             )}
-
-
                         </div>
                     ))}
-
                 </form>
             </div>
         </div>

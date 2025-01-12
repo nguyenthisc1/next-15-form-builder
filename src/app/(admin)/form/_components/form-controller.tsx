@@ -17,7 +17,7 @@ const FormController = () => {
             payload: { column, value },
         })
 
-        console.log("🚀 ~ FormController ~ state:", state)
+        console.log('🚀 ~ FormController ~ state:', state)
         // const response = await UpdateFormById(state.form.id, { column, value })
         // if (response) {
         //     toast.success(`${column} form updated successfully`)

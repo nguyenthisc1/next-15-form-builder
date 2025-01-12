@@ -12,8 +12,8 @@ import { toast } from 'sonner'
 
 type Props = {
     defaultValues: {
-        key: string,
-        field?: any,
+        key: string
+        field?: any
         index?: number
     }
 }
@@ -24,21 +24,19 @@ const FieldEdit = ({ defaultValues }: Props) => {
     const [values, setvalues] = useState({ ...defaultValues })
 
     const handleUpdateField = async () => {
-
         const updated = dispatch({
             type: ActionTypes.UPDATE_FORM_FIELD,
             payload: { key: values.key, field: values.field, index: values.index },
         })
 
         const response = await UpdateFormById(state.form.id, { column: 'jsonform', value: updated.form.jsonform })
-        console.log("🚀 ~ handleUpdateField ~ response:", response)
+        console.log('🚀 ~ handleUpdateField ~ response:', response)
 
         if (response) {
             toast.success('Field updated successfully')
         } else {
             toast.error('Failed to update field', response)
         }
-
     }
 
     const handleDeleteField = async () => {
@@ -46,9 +44,9 @@ const FieldEdit = ({ defaultValues }: Props) => {
             type: ActionTypes.DELETE_FORM_FIELD,
             payload: {
                 key: values.key,
-                index: defaultValues.index
-            }
-        });
+                index: defaultValues.index,
+            },
+        })
 
         const response = await UpdateFormById(state.form.id, { column: 'jsonform', value: deleted.form.jsonform })
         if (response) {
@@ -87,33 +85,29 @@ const FieldEdit = ({ defaultValues }: Props) => {
                                 />
                             </div>
 
-                            {
-                                defaultValues.field.placeholder && (
-                                    <div className='space-y-1'>
-                                        <label className='text-sm text-gray-500'>Placeholder</label>
-                                        <Input
-                                            type='text'
-                                            defaultValue={defaultValues.field.placeholder}
-                                            onChange={(e) =>
-                                                setvalues({
-                                                    ...values,
-                                                    field: {
-                                                        ...values.field,
-                                                        placeholder: e.target.value,
-                                                    },
-                                                })
-                                            }
-                                        />
-                                    </div>
-                                )
-                            }
+                            {defaultValues.field.placeholder && (
+                                <div className='space-y-1'>
+                                    <label className='text-sm text-gray-500'>Placeholder</label>
+                                    <Input
+                                        type='text'
+                                        defaultValue={defaultValues.field.placeholder}
+                                        onChange={(e) =>
+                                            setvalues({
+                                                ...values,
+                                                field: {
+                                                    ...values.field,
+                                                    placeholder: e.target.value,
+                                                },
+                                            })
+                                        }
+                                    />
+                                </div>
+                            )}
                             <Button onClick={handleUpdateField}>Update</Button>
                         </div>
                     </PopoverContent>
                 </Popover>
-                {defaultValues.key === 'field' && defaultValues.field.type !== 'submit' && (
-                    <Trash className='size-5 text-red-400' onClick={handleDeleteField} />
-                )}
+                {defaultValues.key === 'field' && defaultValues.field.type !== 'submit' && <Trash className='size-5 text-red-400' onClick={handleDeleteField} />}
             </div>
         </>
     )

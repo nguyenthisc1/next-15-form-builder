@@ -26,31 +26,27 @@ type Action =
     | { type: ActionTypes.UPDATE_FORM_FIELD; payload: { key: string; field?: any; index?: number } }
     | { type: ActionTypes.DELETE_FORM_FIELD; payload: { key: string; index?: number } }
     | {
-        type: ActionTypes.UPDATE_FORM_CONTROLLER
-        payload: {
-            column: keyof Controller
-            value: string
-        }
-    }
+          type: ActionTypes.UPDATE_FORM_CONTROLLER
+          payload: {
+              column: keyof Controller
+              value: string
+          }
+      }
     | {
-        type: ActionTypes.SWITCH_FORM_STATUS
-        payload: { status: State['status'] }
-    }
+          type: ActionTypes.SWITCH_FORM_STATUS
+          payload: { status: State['status'] }
+      }
 
 // Reducer function
 const formReducer = (state: State, action: Action): State => {
     switch (action.type) {
         case ActionTypes.UPDATE_FORM_FIELD:
-            console.log("🚀 ~ formReducer ~ action:", action)
+            console.log('🚀 ~ formReducer ~ action:', action)
             const { jsonform: form } = state.form
 
             // Update the field at the specified index by mapping through fields array
             // If index matches, return new field object, otherwise return existing field
-            const updatedFields = form.fields.map((field: any, index: number) =>
-                index === action.payload.index
-                    ? { ...action.payload.field }
-                    : field
-            )
+            const updatedFields = form.fields.map((field: any, index: number) => (index === action.payload.index ? { ...action.payload.field } : field))
 
             // Return updated state with new fields and form data
             // Spread existing state and form data
@@ -72,9 +68,7 @@ const formReducer = (state: State, action: Action): State => {
 
             // Filter out the field at the specified index by creating new array
             // Only include fields where index doesn't match payload index
-            const updatedFieldsAfterDelete = formToDelete.fields.filter((_: any, index: number) =>
-                index !== action.payload.index
-            )
+            const updatedFieldsAfterDelete = formToDelete.fields.filter((_: any, index: number) => index !== action.payload.index)
             // Return updated state with filtered fields array
             // Maintain all other state and form data
             return {
@@ -115,8 +109,8 @@ const formReducer = (state: State, action: Action): State => {
 }
 
 interface Store {
-    state: State,
-    dispatch: Dispatch,
+    state: State
+    dispatch: Dispatch
 }
 
 // Create context
@@ -130,7 +124,6 @@ interface FormProviderProps {
 
 const FormProvider: FC<FormProviderProps> = ({ initialState, children }) => {
     const [state, originalDispatch] = useReducer(formReducer, initialState)
-
 
     const stateRef = useRef(state)
 
@@ -149,11 +142,7 @@ const FormProvider: FC<FormProviderProps> = ({ initialState, children }) => {
 
     const store = useMemo(() => ({ state, dispatch }), [state, dispatch])
 
-    return (
-        <FormContext.Provider value={store}>
-            {children}
-        </FormContext.Provider>
-    )
+    return <FormContext.Provider value={store}>{children}</FormContext.Provider>
 }
 
 // Custom hook to use the context
@@ -166,4 +155,3 @@ const useFormState = () => {
 }
 
 export { ActionTypes, FormProvider, useFormState }
-

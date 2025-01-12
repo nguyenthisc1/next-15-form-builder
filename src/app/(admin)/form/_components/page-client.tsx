@@ -22,7 +22,7 @@ const PageClient = () => {
 
     return (
         <>
-            <header className={cn('h-16 shrink-0 gap-2 p-2 transition-[width,height,transform,padding] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 overflow-hidden', preview && '-translate-y-full h-0  p-0')}>
+            <header className={cn('h-16 shrink-0 gap-2 overflow-hidden p-2 transition-[width,height,transform,padding] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12', preview && 'h-0 -translate-y-full p-0')}>
                 <div className='flex size-full items-center rounded-lg border border-sidebar-border'>
                     <div className='flex items-center gap-2 px-4'>
                         <SidebarTrigger className='-ml-1' />
@@ -67,7 +67,7 @@ const PageClient = () => {
                             </Button>
                         </div>
                     </div>
-                    <div className={cn('grid grid-cols-1 gap-4 md:grid-cols-3 transition-[min-height] min-h-0 px-2', preview && 'px-0 min-h-[calc(100%-60px)]')}>
+                    <div className={cn('grid min-h-0 grid-cols-1 gap-4 px-2 transition-[min-height] md:grid-cols-3', preview && 'min-h-[calc(100%-60px)] px-0')}>
                         {!preview && <FormController />}
                         <div className={cn('col-span-2 flex items-stretch', preview && 'col-span-3')}>
                             <FormUI />
