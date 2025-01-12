@@ -1,6 +1,6 @@
 'use client'
 
-import { ActionTypes, useFormContext } from '@/app/(admin)/form/provider/form-context'
+import { ActionTypes, useFormState } from '@/app/(admin)/form/provider/form-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent } from '@/components/ui/popover'
@@ -19,22 +19,42 @@ type Props = {
 }
 
 const FieldEdit = ({ defaultValues }: Props) => {
-    const { state, dispatch } = useFormContext()
+    const { dispatch, state } = useFormState()
 
     const [values, setvalues] = useState({ ...defaultValues })
 
     const handleUpdateField = async () => {
-        dispatch({
+
+        const updated = dispatch({
             type: ActionTypes.UPDATE_FORM_FIELD,
             payload: { key: values.key, field: values.field, index: values.index },
         })
 
-        const response = await UpdateFormById(state.form.id, { column: 'jsonform', value: state.form.jsonform })
+        const response = await UpdateFormById(state.form.id, { column: 'jsonform', value: updated.form.jsonform })
         console.log("🚀 ~ handleUpdateField ~ response:", response)
+
         if (response) {
             toast.success('Field updated successfully')
         } else {
-            toast.error('Failed to update field')
+            toast.error('Failed to update field', response)
+        }
+
+    }
+
+    const handleDeleteField = async () => {
+        const deleted = dispatch({
+            type: ActionTypes.DELETE_FORM_FIELD,
+            payload: {
+                key: values.key,
+                index: defaultValues.index
+            }
+        });
+
+        const response = await UpdateFormById(state.form.id, { column: 'jsonform', value: deleted.form.jsonform })
+        if (response) {
+            toast.success('Field deleted successfully')
+        } else {
+            toast.error('Failed to delete field')
         }
     }
 
@@ -91,7 +111,9 @@ const FieldEdit = ({ defaultValues }: Props) => {
                         </div>
                     </PopoverContent>
                 </Popover>
-                <Trash className='size-5 text-red-400' />
+                {defaultValues.key === 'field' && defaultValues.field.type !== 'submit' && (
+                    <Trash className='size-5 text-red-400' onClick={handleDeleteField} />
+                )}
             </div>
         </>
     )

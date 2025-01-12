@@ -1,5 +1,5 @@
 import FieldEdit from '@/app/(admin)/form/_components/field-edit'
-import { useFormContext } from '@/app/(admin)/form/provider/form-context'
+import { useFormState } from '@/app/(admin)/form/provider/form-context'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
@@ -10,31 +10,31 @@ import { useSidebar } from '@/components/ui/sidebar'
 import { Textarea } from '@/components/ui/textarea'
 
 const FormUI = () => {
-    const { state } = useFormContext()
-
-    const { jsonform: form } = state.form
-    console.log("🚀 ~ FormUI ~ form:", form)
-    const { controller } = state
+    const { state } = useFormState()
+    const { form, controller } = state
+    const { jsonform } = form
+    // console.log("🚀 ~ FormUI ~ jsonform:", jsonform)
     const { preview } = useSidebar()
 
     return (
         <div className='flex justify-center w-full items-center rounded-lg border border-border p-4' style={{ background: controller.background }}>
+
             <div className='mx-auto inline-block min-w-[480px] space-y-8 border p-4' data-theme={controller!.theme}>
                 <div className='space-y-2'>
                     <div className='relative'>
-                        <h2 className='text-center text-2xl font-bold'>{form?.title}</h2>
+                        <h2 className='text-center text-2xl font-bold'>{jsonform?.title}</h2>
                         {!preview && (
                             <div className='absolute right-0 top-0 cursor-pointer'>
-                                <FieldEdit defaultValues={{ key: 'title', field: { label: form.title } }} />
+                                <FieldEdit defaultValues={{ key: 'title', field: { label: jsonform.title } }} />
                             </div>
                         )}
                     </div>
                     <div className='relative'>
 
-                        <h3 className='text-center m-auto text-sm text-gray-400 max-w-[80%]'>{form?.subHeading}</h3>
+                        <h3 className='text-center m-auto text-sm text-gray-400 max-w-[80%]'>{jsonform?.subHeading}</h3>
                         {!preview && (
                             <div className='absolute right-0 top-0 cursor-pointer'>
-                                <FieldEdit defaultValues={{ key: 'subHeading', field: { label: form.subHeading } }} />
+                                <FieldEdit defaultValues={{ key: 'subHeading', field: { label: jsonform.subHeading } }} />
                             </div>
                         )}
                     </div>
@@ -42,7 +42,7 @@ const FormUI = () => {
                 </div>
 
                 <form className='space-y-5'>
-                    {form?.fields?.map((field: any, index: number) => (
+                    {jsonform?.fields?.map((field: any, index: number) => (
                         <div key={index} className='relative'>
                             <div className='form-field space-y-1'>
                                 {field.type === 'select' && (
@@ -141,7 +141,7 @@ const FormUI = () => {
 
                             {!preview && (
                                 <div className='absolute right-0 top-0 cursor-pointer'>
-                                    <FieldEdit defaultValues={{ key: 'fields', field, index }} />
+                                    <FieldEdit defaultValues={{ key: 'field', field, index }} />
                                 </div>
                             )}
 

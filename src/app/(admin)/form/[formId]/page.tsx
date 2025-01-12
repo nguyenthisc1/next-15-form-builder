@@ -14,7 +14,7 @@ const EditForm = async ({ params }: { params: Promise<{ formId: string }> }) => 
     return (
         <>
             <FormProvider
-                initialData={{
+                initialState={{
                     form: {
                         id: form.id,
                         jsonform: form.jsonform,

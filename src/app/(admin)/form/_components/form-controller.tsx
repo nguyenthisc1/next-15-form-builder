@@ -1,4 +1,4 @@
-import { ActionTypes, useFormContext } from '@/app/(admin)/form/provider/form-context'
+import { ActionTypes, useFormState } from '@/app/(admin)/form/provider/form-context'
 import backgroundForm from '@/app/_data/background-form'
 import * as themes from '@/app/_data/themes'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 
 const FormController = () => {
-    const { state, dispatch } = useFormContext()
+    const { dispatch, state } = useFormState()
     const { controller } = state
 
     const handleUpdateForm = async (column: keyof Controller, value: string) => {
@@ -17,12 +17,13 @@ const FormController = () => {
             payload: { column, value },
         })
 
-        const response = await UpdateFormById(state.form.id, { column, value })
-        if (response) {
-            toast.success(`${column} form updated successfully`)
-        } else {
-            toast.error(`Failed to update ${column} form`)
-        }
+        console.log("🚀 ~ FormController ~ state:", state)
+        // const response = await UpdateFormById(state.form.id, { column, value })
+        // if (response) {
+        //     toast.success(`${column} form updated successfully`)
+        // } else {
+        //     toast.error(`Failed to update ${column} form`)
+        // }
     }
 
     return (
